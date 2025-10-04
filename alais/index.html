@@ -9,13 +9,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="./style.css"/>
-  <style>
-    /* Gold outline for starred cards */
-    .card-starred {
-      border: 3px solid #f5c542 !important;
-      border-radius: 12px;
-    }
-  </style>
 </head>
 <body class="gjs-t-body">
 
@@ -47,7 +40,7 @@
       <!-- ChatGPT (pre-starred) -->
       <article data-id="ai-chatgpt" data-name="ChatGPT" data-categories="chat, writing, gpt" data-starred="true" class="gjs-t-border ai-card card-starred">
         <button type="button" aria-label="Toggle star" title="Star this tool" class="star-toggle-button">
-          <img src="https://api.iconify.design/lucide-star.svg" width="18" height="18" alt="Star" loading="lazy" class="star-icon"/>
+          <img src="https://api.iconify.design/lucide-star.svg?color=%23f5c542" width="18" height="18" alt="Star" loading="lazy" class="star-icon"/>
         </button>
         <div class="ai-card-header">
           <figure class="ai-icon-figure">
@@ -117,7 +110,7 @@
       <!-- Leonardo AI (pre-starred) -->
       <article data-id="ai-leonardo" data-name="Leonardo AI" data-categories="images, art, design" data-starred="true" class="gjs-t-border ai-card card-starred">
         <button type="button" aria-label="Toggle star" title="Star this tool" class="star-toggle-button">
-          <img src="https://api.iconify.design/lucide-star.svg" width="18" height="18" alt="Star" loading="lazy" class="star-icon"/>
+          <img src="https://api.iconify.design/lucide-star.svg?color=%23f5c542" width="18" height="18" alt="Star" loading="lazy" class="star-icon"/>
         </button>
         <div class="ai-card-header">
           <figure class="ai-icon-figure">
@@ -162,23 +155,23 @@
       </article>
 
       <!-- Gamma (pre-starred) -->
-      <article data-id="ai-gamma" data-name="Gamma" data-categories="presentations, slides" data-starred="true" class="gjs-t-border ai-card card-starred">
+      <article data-id="ai-gamma" data-name="Gamma" data-categories="presentations, productivity" data-starred="true" class="gjs-t-border ai-card card-starred">
         <button type="button" aria-label="Toggle star" title="Star this tool" class="star-toggle-button">
-          <img src="https://api.iconify.design/lucide-star.svg" width="18" height="18" alt="Star" loading="lazy" class="star-icon"/>
+          <img src="https://api.iconify.design/lucide-star.svg?color=%23f5c542" width="18" height="18" alt="Star" loading="lazy" class="star-icon"/>
         </button>
         <div class="ai-card-header">
           <figure class="ai-icon-figure">
-            <img src="https://api.iconify.design/lucide-slideshow.svg" alt="Gamma Icon" width="48" height="48" loading="lazy"/>
+            <img src="https://api.iconify.design/lucide-bot.svg" alt="Gamma Icon" width="48" height="48" loading="lazy"/>
           </figure>
           <div class="ai-text-content">
             <h3 class="ai-name">Gamma</h3>
-            <p class="ai-description">Create AI-powered presentations and slides easily.</p>
+            <p class="ai-description">AI-powered tool for creating presentations and visuals.</p>
             <div class="ai-actions">
               <a href="https://gamma.app/" target="_blank" rel="noopener noreferrer" class="gjs-t-button visit-ai-button">Open AI</a>
             </div>
             <ul class="categories-list">
               <li class="category-badge"><span>Presentations</span></li>
-              <li class="category-badge"><span>Slides</span></li>
+              <li class="category-badge"><span>Productivity</span></li>
             </ul>
           </div>
         </div>
@@ -187,7 +180,7 @@
       <!-- Suno (pre-starred) -->
       <article data-id="ai-suno" data-name="Suno" data-categories="audio, music, voice" data-starred="true" class="gjs-t-border ai-card card-starred">
         <button type="button" aria-label="Toggle star" title="Star this tool" class="star-toggle-button">
-          <img src="https://api.iconify.design/lucide-star.svg" width="18" height="18" alt="Star" loading="lazy" class="star-icon"/>
+          <img src="https://api.iconify.design/lucide-star.svg?color=%23f5c542" width="18" height="18" alt="Star" loading="lazy" class="star-icon"/>
         </button>
         <div class="ai-card-header">
           <figure class="ai-icon-figure">
@@ -211,7 +204,7 @@
       <!-- Venngage (pre-starred) -->
       <article data-id="ai-venngage" data-name="Venngage" data-categories="design, infographic" data-starred="true" class="gjs-t-border ai-card card-starred">
         <button type="button" aria-label="Toggle star" title="Star this tool" class="star-toggle-button">
-          <img src="https://api.iconify.design/lucide-star.svg" width="18" height="18" alt="Star" loading="lazy" class="star-icon"/>
+          <img src="https://api.iconify.design/lucide-star.svg?color=%23f5c542" width="18" height="18" alt="Star" loading="lazy" class="star-icon"/>
         </button>
         <div class="ai-card-header">
           <figure class="ai-icon-figure">
@@ -245,7 +238,7 @@
 
 <footer class="footer">
   <div class="footer-container">
-    <span>© 2025 All the Ai's | Made by not B0T</span>
+    <span>© 2025 All the Ai's</span>
     <nav class="footer-nav">
       <a href="https://api.iconify.design/" target="_blank" rel="noopener noreferrer">Icons</a>
       <a href="https://fonts.google.com/" target="_blank" rel="noopener noreferrer">Fonts</a>
@@ -265,32 +258,46 @@
   const STAR_KEY = 'alltheais-starred-ids';
 
   function loadStarred() {
-    try { const raw = localStorage.getItem(STAR_KEY); return raw ? JSON.parse(raw) : []; } catch(e){return [];}
+    try {
+      const raw = localStorage.getItem(STAR_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch(e) { return []; }
   }
-  function saveStarred(ids) { try{ localStorage.setItem(STAR_KEY, JSON.stringify(ids));}catch(e){}}
 
-  function setStarState(card, starred){
-    card.dataset.starred = starred ? 'true':'false';
-    if(starred){ card.classList.add('card-starred'); } else { card.classList.remove('card-starred'); }
+  function saveStarred(ids) {
+    try { localStorage.setItem(STAR_KEY, JSON.stringify(ids)); } catch(e){}
+  }
+
+  function setStarState(card, starred) {
+    card.dataset.starred = starred ? 'true' : 'false';
+    const btn = card.querySelector('.star-toggle-button img');
+    if(starred) {
+      card.classList.add('card-starred');
+      if(btn) btn.src = 'https://api.iconify.design/lucide-star.svg?color=%23f5c542';
+    } else {
+      card.classList.remove('card-starred');
+      if(btn) btn.src = 'https://api.iconify.design/lucide-star.svg';
+    }
   }
 
   const starredIds = new Set(loadStarred());
-  cards.forEach(card=>{
+  cards.forEach(card => {
     const id = card.dataset.id;
-    const preStarred = card.dataset.starred==='true';
+    const preStarred = card.dataset.starred === 'true';
     setStarState(card, preStarred || starredIds.has(id));
     if(preStarred) starredIds.add(id);
   });
 
-  cards.forEach(card=>{
+  cards.forEach(card => {
     const btn = card.querySelector('.star-toggle-button');
     if(!btn) return;
-    btn.addEventListener('click', e=>{
+    btn.addEventListener('click', e => {
       e.stopPropagation();
       const id = card.dataset.id;
-      const nowStarred = card.dataset.starred!=='true';
+      const nowStarred = card.dataset.starred !== 'true';
       setStarState(card, nowStarred);
-      if(nowStarred) starredIds.add(id); else starredIds.delete(id);
+      if(nowStarred) starredIds.add(id);
+      else starredIds.delete(id);
       saveStarred(Array.from(starredIds));
       applySearch();
     });
@@ -312,14 +319,16 @@
     const q = (searchInput.value||'').trim().toLowerCase();
     let shown=0;
     cards.forEach(card=>{
-      const name = (card.dataset.name||'').toLowerCase();
-      const cats = (card.dataset.categories||'').toLowerCase();
+      const name=(card.dataset.name||'').toLowerCase();
+      const cats=(card.dataset.categories||'').toLowerCase();
       const match = !q || name.includes(q) || cats.includes(q);
       card.style.display = match?'':'none';
       if(match) shown++;
     });
+
     if(emptyState) emptyState.style.display = shown===0?'block':'none';
     if(resultCount) resultCount.textContent = q?`Showing ${shown} result${shown===1?'':'s'} for “${searchInput.value}”`:`Showing all AI tools (${shown})`;
+
     renderOrder();
   }
 
