@@ -12,8 +12,8 @@
   <style>
     /* Gold outline for starred cards */
     .card-starred {
-      border: 3px solid #f5c542;
-      border-radius: 10px;
+      border: 3px solid #f5c542 !important;
+      border-radius: 12px;
     }
   </style>
 </head>
@@ -51,7 +51,7 @@
         </button>
         <div class="ai-card-header">
           <figure class="ai-icon-figure">
-            <img src="https://api.iconify.design/lucide-message-square.svg" alt="ChatGPT Icon" width="48" height="48" loading="lazy"/>
+            <img src="https://api.iconify.design/lucide-bot.svg" alt="ChatGPT Icon" width="48" height="48" loading="lazy"/>
           </figure>
           <div class="ai-text-content">
             <h3 class="ai-name">ChatGPT</h3>
@@ -75,7 +75,7 @@
         </button>
         <div class="ai-card-header">
           <figure class="ai-icon-figure">
-            <img src="https://api.iconify.design/lucide-google.svg" alt="Gemini Icon" width="48" height="48" loading="lazy"/>
+            <img src="https://api.iconify.design/lucide-bot.svg" alt="Gemini Icon" width="48" height="48" loading="lazy"/>
           </figure>
           <div class="ai-text-content">
             <h3 class="ai-name">Gemini</h3>
@@ -98,7 +98,7 @@
         </button>
         <div class="ai-card-header">
           <figure class="ai-icon-figure">
-            <img src="https://api.iconify.design/lucide-search.svg" alt="DeepSeek Icon" width="48" height="48" loading="lazy"/>
+            <img src="https://api.iconify.design/lucide-bot.svg" alt="DeepSeek Icon" width="48" height="48" loading="lazy"/>
           </figure>
           <div class="ai-text-content">
             <h3 class="ai-name">DeepSeek</h3>
@@ -145,7 +145,7 @@
         </button>
         <div class="ai-card-header">
           <figure class="ai-icon-figure">
-            <img src="https://api.iconify.design/lucide-robot.svg" alt="Grok Icon" width="48" height="48" loading="lazy"/>
+            <img src="https://api.iconify.design/lucide-bot.svg" alt="Grok Icon" width="48" height="48" loading="lazy"/>
           </figure>
           <div class="ai-text-content">
             <h3 class="ai-name">Grok</h3>
@@ -162,23 +162,23 @@
       </article>
 
       <!-- Gamma (pre-starred) -->
-      <article data-id="ai-gamma" data-name="Gamma" data-categories="presentation, docs" data-starred="true" class="gjs-t-border ai-card card-starred">
+      <article data-id="ai-gamma" data-name="Gamma" data-categories="presentations, slides" data-starred="true" class="gjs-t-border ai-card card-starred">
         <button type="button" aria-label="Toggle star" title="Star this tool" class="star-toggle-button">
           <img src="https://api.iconify.design/lucide-star.svg" width="18" height="18" alt="Star" loading="lazy" class="star-icon"/>
         </button>
         <div class="ai-card-header">
           <figure class="ai-icon-figure">
-            <img src="https://api.iconify.design/lucide-file-text.svg" alt="Gamma Icon" width="48" height="48" loading="lazy"/>
+            <img src="https://api.iconify.design/lucide-slideshow.svg" alt="Gamma Icon" width="48" height="48" loading="lazy"/>
           </figure>
           <div class="ai-text-content">
             <h3 class="ai-name">Gamma</h3>
-            <p class="ai-description">AI tool for creating smart presentations and docs.</p>
+            <p class="ai-description">Create AI-powered presentations and slides easily.</p>
             <div class="ai-actions">
               <a href="https://gamma.app/" target="_blank" rel="noopener noreferrer" class="gjs-t-button visit-ai-button">Open AI</a>
             </div>
             <ul class="categories-list">
-              <li class="category-badge"><span>Presentation</span></li>
-              <li class="category-badge"><span>Docs</span></li>
+              <li class="category-badge"><span>Presentations</span></li>
+              <li class="category-badge"><span>Slides</span></li>
             </ul>
           </div>
         </div>
@@ -265,21 +265,17 @@
   const STAR_KEY = 'alltheais-starred-ids';
 
   function loadStarred() {
-    try { return JSON.parse(localStorage.getItem(STAR_KEY)||'[]'); } catch(e){return [];}
+    try { const raw = localStorage.getItem(STAR_KEY); return raw ? JSON.parse(raw) : []; } catch(e){return [];}
   }
-  function saveStarred(ids) {
-    try { localStorage.setItem(STAR_KEY, JSON.stringify(ids)); } catch(e){}
-  }
+  function saveStarred(ids) { try{ localStorage.setItem(STAR_KEY, JSON.stringify(ids));}catch(e){}}
 
-  function setStarState(card, starred) {
-    card.dataset.starred = starred?'true':'false';
-    const btn = card.querySelector('.star-toggle-button img');
-    if(starred) card.classList.add('card-starred');
-    else card.classList.remove('card-starred');
+  function setStarState(card, starred){
+    card.dataset.starred = starred ? 'true':'false';
+    if(starred){ card.classList.add('card-starred'); } else { card.classList.remove('card-starred'); }
   }
 
   const starredIds = new Set(loadStarred());
-  cards.forEach(card => {
+  cards.forEach(card=>{
     const id = card.dataset.id;
     const preStarred = card.dataset.starred==='true';
     setStarState(card, preStarred || starredIds.has(id));
@@ -294,16 +290,15 @@
       const id = card.dataset.id;
       const nowStarred = card.dataset.starred!=='true';
       setStarState(card, nowStarred);
-      if(nowStarred) starredIds.add(id);
-      else starredIds.delete(id);
+      if(nowStarred) starredIds.add(id); else starredIds.delete(id);
       saveStarred(Array.from(starredIds));
       applySearch();
     });
   });
 
   function sortCards(a,b){
-    const sa=a.dataset.starred==='true'?0:1;
-    const sb=b.dataset.starred==='true'?0:1;
+    const sa = a.dataset.starred==='true'?0:1;
+    const sb = b.dataset.starred==='true'?0:1;
     if(sa!==sb) return sa-sb;
     return a.dataset.name.toLowerCase().localeCompare(b.dataset.name.toLowerCase());
   }
@@ -314,19 +309,17 @@
   }
 
   function applySearch(){
-    const q=(searchInput.value||'').trim().toLowerCase();
+    const q = (searchInput.value||'').trim().toLowerCase();
     let shown=0;
     cards.forEach(card=>{
-      const name=(card.dataset.name||'').toLowerCase();
-      const cats=(card.dataset.categories||'').toLowerCase();
+      const name = (card.dataset.name||'').toLowerCase();
+      const cats = (card.dataset.categories||'').toLowerCase();
       const match = !q || name.includes(q) || cats.includes(q);
       card.style.display = match?'':'none';
       if(match) shown++;
     });
-
     if(emptyState) emptyState.style.display = shown===0?'block':'none';
     if(resultCount) resultCount.textContent = q?`Showing ${shown} result${shown===1?'':'s'} for “${searchInput.value}”`:`Showing all AI tools (${shown})`;
-
     renderOrder();
   }
 
