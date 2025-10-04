@@ -9,92 +9,23 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="./style.css"/>
+
   <style>
-    body {
+    /* Gold outline for starred cards */
+    .ai-card.card-starred {
+      border: 3px solid #f5c542 !important;
+      box-shadow: none !important;
+      background: none !important;
+    }
+
+    /* Footer credit */
+    .footer-credit {
+      text-align: center;
       font-family: 'Inter', sans-serif;
-      background: #fafafa;
-      margin: 0;
-      padding: 0;
-    }
-    .header, .footer {
-      text-align: center;
-      padding: 1.5rem;
-      background: #fff;
-      border-bottom: 1px solid #e5e5e5;
-    }
-    .footer {
-      border-top: 1px solid #e5e5e5;
-      border-bottom: none;
       font-size: 0.9rem;
-      color: #666;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .ai-cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1rem;
-      padding: 2rem;
-      max-width: 1300px;
-      margin: auto;
-    }
-    .ai-card {
-      background: #fff;
-      border: 2px solid #ddd;
-      border-radius: 12px;
-      padding: 1rem;
-      transition: border-color 0.2s ease, transform 0.2s ease;
-      position: relative;
-    }
-    .ai-card:hover {
-      transform: translateY(-3px);
-    }
-    .card-starred {
-      border: 3px solid gold !important;
-    }
-    .star-toggle-button {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-    }
-    .search-form {
-      margin-top: 1rem;
-      text-align: center;
-    }
-    .search-input-container {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      padding: 0.4rem 0.8rem;
-    }
-    .search-input-field {
-      border: none;
-      outline: none;
-      font-size: 1rem;
-    }
-    .clear-search-button {
-      margin-left: 10px;
-      padding: 0.4rem 0.8rem;
-      cursor: pointer;
-    }
-    .search-result-count {
-      display: block;
-      margin-top: 0.5rem;
-      color: #555;
-      font-size: 0.9rem;
-    }
-    .empty-state {
-      display: none;
-      text-align: center;
-      margin: 2rem 0;
+      color: #999;
+      margin-top: 10px;
+      margin-bottom: 10px;
     }
   </style>
 </head>
@@ -111,7 +42,7 @@
         <div class="search-row">
           <div class="gjs-t-border search-input-container">
             <img src="https://api.iconify.design/lucide-search.svg" alt="Search" width="20" height="20" loading="lazy" class="search-icon"/>
-            <input type="text" id="searchInput" placeholder="Search by AI name or category (e.g., chat, images, code)" class="search-input-field"/>
+            <input type="text" id="searchInput" placeholder="Search by AI name or category (e.g., chat, images, code, starred)" class="search-input-field"/>
           </div>
           <button type="button" id="clearSearch" class="gjs-t-button clear-search-button">Clear</button>
         </div>
@@ -126,101 +57,217 @@
     <div id="aiGrid" class="ai-cards-grid">
 
       <!-- ChatGPT (pre-starred) -->
-      <article data-id="ai-chatgpt" data-name="ChatGPT" data-categories="chat, writing, gpt" data-starred="true" class="ai-card card-starred">
-        <button type="button" aria-label="Toggle star" class="star-toggle-button">
-          <img src="https://api.iconify.design/lucide-star.svg?color=%23f5c542" width="18" height="18" alt="Star"/>
+      <article data-id="ai-chatgpt" data-name="ChatGPT" data-categories="chat, writing, gpt" data-starred="true" class="gjs-t-border ai-card card-starred">
+        <button type="button" aria-label="Toggle star" title="Star this tool" class="star-toggle-button">
+          <img src="https://api.iconify.design/lucide-star.svg?color=%23f5c542" width="18" height="18" alt="Star" loading="lazy" class="star-icon"/>
         </button>
-        <h3>ChatGPT</h3>
-        <p>Conversational AI for chatting, writing, brainstorming, and coding assistance.</p>
-        <a href="https://chatgpt.com/" target="_blank" class="gjs-t-button">Open AI</a>
+        <div class="ai-card-header">
+          <figure class="ai-icon-figure">
+            <img src="https://api.iconify.design/lucide-bot.svg" alt="ChatGPT Icon" width="48" height="48" loading="lazy"/>
+          </figure>
+          <div class="ai-text-content">
+            <h3 class="ai-name">ChatGPT</h3>
+            <p class="ai-description">Conversational AI for chatting, writing, brainstorming, and coding assistance.</p>
+            <div class="ai-actions">
+              <a href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer" class="gjs-t-button visit-ai-button">Open AI</a>
+            </div>
+            <ul class="categories-list">
+              <li class="category-badge"><span>Chat</span></li>
+              <li class="category-badge"><span>Writing</span></li>
+              <li class="category-badge"><span>GPT</span></li>
+            </ul>
+          </div>
+        </div>
       </article>
 
       <!-- Gemini -->
-      <article data-id="ai-gemini" data-name="Gemini" data-categories="chat, search" data-starred="false" class="ai-card">
-        <button type="button" aria-label="Toggle star" class="star-toggle-button">
-          <img src="https://api.iconify.design/lucide-star.svg" width="18" height="18" alt="Star"/>
+      <article data-id="ai-gemini" data-name="Gemini" data-categories="chat, search" data-starred="false" class="gjs-t-border ai-card">
+        <button type="button" aria-label="Toggle star" title="Star this tool" class="star-toggle-button">
+          <img src="https://api.iconify.design/lucide-star.svg" width="18" height="18" alt="Star" loading="lazy" class="star-icon"/>
         </button>
-        <h3>Gemini</h3>
-        <p>AI assistant by Google for chat and search tasks.</p>
-        <a href="https://gemini.google.com/app" target="_blank" class="gjs-t-button">Open AI</a>
+        <div class="ai-card-header">
+          <figure class="ai-icon-figure">
+            <img src="https://api.iconify.design/lucide-bot.svg" alt="Gemini Icon" width="48" height="48" loading="lazy"/>
+          </figure>
+          <div class="ai-text-content">
+            <h3 class="ai-name">Gemini</h3>
+            <p class="ai-description">AI assistant by Google for chat and search tasks.</p>
+            <div class="ai-actions">
+              <a href="https://gemini.google.com/app" target="_blank" rel="noopener noreferrer" class="gjs-t-button visit-ai-button">Open AI</a>
+            </div>
+            <ul class="categories-list">
+              <li class="category-badge"><span>Chat</span></li>
+              <li class="category-badge"><span>Search</span></li>
+            </ul>
+          </div>
+        </div>
       </article>
 
       <!-- DeepSeek -->
-      <article data-id="ai-deepseek" data-name="DeepSeek" data-categories="chat, search" data-starred="false" class="ai-card">
-        <button type="button" aria-label="Toggle star" class="star-toggle-button">
-          <img src="https://api.iconify.design/lucide-star.svg" width="18" height="18" alt="Star"/>
+      <article data-id="ai-deepseek" data-name="DeepSeek" data-categories="chat, search" data-starred="false" class="gjs-t-border ai-card">
+        <button type="button" aria-label="Toggle star" title="Star this tool" class="star-toggle-button">
+          <img src="https://api.iconify.design/lucide-star.svg" width="18" height="18" alt="Star" loading="lazy" class="star-icon"/>
         </button>
-        <h3>DeepSeek</h3>
-        <p>Conversational AI search engine for intelligent answers.</p>
-        <a href="https://chat.deepseek.com/" target="_blank" class="gjs-t-button">Open AI</a>
+        <div class="ai-card-header">
+          <figure class="ai-icon-figure">
+            <img src="https://api.iconify.design/lucide-bot.svg" alt="DeepSeek Icon" width="48" height="48" loading="lazy"/>
+          </figure>
+          <div class="ai-text-content">
+            <h3 class="ai-name">DeepSeek</h3>
+            <p class="ai-description">Conversational AI search engine for intelligent answers.</p>
+            <div class="ai-actions">
+              <a href="https://chat.deepseek.com/" target="_blank" rel="noopener noreferrer" class="gjs-t-button visit-ai-button">Open AI</a>
+            </div>
+            <ul class="categories-list">
+              <li class="category-badge"><span>Chat</span></li>
+              <li class="category-badge"><span>Search</span></li>
+            </ul>
+          </div>
+        </div>
       </article>
 
       <!-- Leonardo AI (pre-starred) -->
-      <article data-id="ai-leonardo" data-name="Leonardo AI" data-categories="images, art, design" data-starred="true" class="ai-card card-starred">
-        <button type="button" aria-label="Toggle star" class="star-toggle-button">
-          <img src="https://api.iconify.design/lucide-star.svg?color=%23f5c542" width="18" height="18" alt="Star"/>
+      <article data-id="ai-leonardo" data-name="Leonardo AI" data-categories="images, art, design" data-starred="true" class="gjs-t-border ai-card card-starred">
+        <button type="button" aria-label="Toggle star" title="Star this tool" class="star-toggle-button">
+          <img src="https://api.iconify.design/lucide-star.svg?color=%23f5c542" width="18" height="18" alt="Star" loading="lazy" class="star-icon"/>
         </button>
-        <h3>Leonardo AI</h3>
-        <p>AI platform for generating images and creative designs.</p>
-        <a href="https://app.leonardo.ai/" target="_blank" class="gjs-t-button">Open AI</a>
+        <div class="ai-card-header">
+          <figure class="ai-icon-figure">
+            <img src="https://api.iconify.design/lucide-image.svg" alt="Leonardo AI Icon" width="48" height="48" loading="lazy"/>
+          </figure>
+          <div class="ai-text-content">
+            <h3 class="ai-name">Leonardo AI</h3>
+            <p class="ai-description">AI platform for generating images and creative designs.</p>
+            <div class="ai-actions">
+              <a href="https://app.leonardo.ai/" target="_blank" rel="noopener noreferrer" class="gjs-t-button visit-ai-button">Open AI</a>
+            </div>
+            <ul class="categories-list">
+              <li class="category-badge"><span>Images</span></li>
+              <li class="category-badge"><span>Art</span></li>
+              <li class="category-badge"><span>Design</span></li>
+            </ul>
+          </div>
+        </div>
       </article>
 
       <!-- Grok -->
-      <article data-id="ai-grok" data-name="Grok" data-categories="chat, ai" data-starred="false" class="ai-card">
-        <button type="button" aria-label="Toggle star" class="star-toggle-button">
-          <img src="https://api.iconify.design/lucide-star.svg" width="18" height="18" alt="Star"/>
+      <article data-id="ai-grok" data-name="Grok" data-categories="chat, ai" data-starred="false" class="gjs-t-border ai-card">
+        <button type="button" aria-label="Toggle star" title="Star this tool" class="star-toggle-button">
+          <img src="https://api.iconify.design/lucide-star.svg" width="18" height="18" alt="Star" loading="lazy" class="star-icon"/>
         </button>
-        <h3>Grok</h3>
-        <p>AI assistant for developers and productivity tasks.</p>
-        <a href="https://grok.com/" target="_blank" class="gjs-t-button">Open AI</a>
+        <div class="ai-card-header">
+          <figure class="ai-icon-figure">
+            <img src="https://api.iconify.design/lucide-bot.svg" alt="Grok Icon" width="48" height="48" loading="lazy"/>
+          </figure>
+          <div class="ai-text-content">
+            <h3 class="ai-name">Grok</h3>
+            <p class="ai-description">AI assistant for developers and productivity tasks.</p>
+            <div class="ai-actions">
+              <a href="https://grok.com/" target="_blank" rel="noopener noreferrer" class="gjs-t-button visit-ai-button">Open AI</a>
+            </div>
+            <ul class="categories-list">
+              <li class="category-badge"><span>Chat</span></li>
+              <li class="category-badge"><span>AI</span></li>
+            </ul>
+          </div>
+        </div>
       </article>
 
       <!-- Gamma (pre-starred) -->
-      <article data-id="ai-gamma" data-name="Gamma" data-categories="presentations, productivity" data-starred="true" class="ai-card card-starred">
-        <button type="button" aria-label="Toggle star" class="star-toggle-button">
-          <img src="https://api.iconify.design/lucide-star.svg?color=%23f5c542" width="18" height="18" alt="Star"/>
+      <article data-id="ai-gamma" data-name="Gamma" data-categories="presentations, productivity" data-starred="true" class="gjs-t-border ai-card card-starred">
+        <button type="button" aria-label="Toggle star" title="Star this tool" class="star-toggle-button">
+          <img src="https://api.iconify.design/lucide-star.svg?color=%23f5c542" width="18" height="18" alt="Star" loading="lazy" class="star-icon"/>
         </button>
-        <h3>Gamma</h3>
-        <p>AI-powered tool for creating presentations and visuals.</p>
-        <a href="https://gamma.app/" target="_blank" class="gjs-t-button">Open AI</a>
+        <div class="ai-card-header">
+          <figure class="ai-icon-figure">
+            <img src="https://api.iconify.design/lucide-bot.svg" alt="Gamma Icon" width="48" height="48" loading="lazy"/>
+          </figure>
+          <div class="ai-text-content">
+            <h3 class="ai-name">Gamma</h3>
+            <p class="ai-description">AI-powered tool for creating presentations and visuals.</p>
+            <div class="ai-actions">
+              <a href="https://gamma.app/" target="_blank" rel="noopener noreferrer" class="gjs-t-button visit-ai-button">Open AI</a>
+            </div>
+            <ul class="categories-list">
+              <li class="category-badge"><span>Presentations</span></li>
+              <li class="category-badge"><span>Productivity</span></li>
+            </ul>
+          </div>
+        </div>
       </article>
 
       <!-- Suno (pre-starred) -->
-      <article data-id="ai-suno" data-name="Suno" data-categories="audio, music, voice" data-starred="true" class="ai-card card-starred">
-        <button type="button" aria-label="Toggle star" class="star-toggle-button">
-          <img src="https://api.iconify.design/lucide-star.svg?color=%23f5c542" width="18" height="18" alt="Star"/>
+      <article data-id="ai-suno" data-name="Suno" data-categories="audio, music, voice" data-starred="true" class="gjs-t-border ai-card card-starred">
+        <button type="button" aria-label="Toggle star" title="Star this tool" class="star-toggle-button">
+          <img src="https://api.iconify.design/lucide-star.svg?color=%23f5c542" width="18" height="18" alt="Star" loading="lazy" class="star-icon"/>
         </button>
-        <h3>Suno</h3>
-        <p>AI platform for generating music and audio content.</p>
-        <a href="https://suno.com/create" target="_blank" class="gjs-t-button">Open AI</a>
+        <div class="ai-card-header">
+          <figure class="ai-icon-figure">
+            <img src="https://api.iconify.design/lucide-music.svg" alt="Suno Icon" width="48" height="48" loading="lazy"/>
+          </figure>
+          <div class="ai-text-content">
+            <h3 class="ai-name">Suno</h3>
+            <p class="ai-description">AI platform for generating music and audio content.</p>
+            <div class="ai-actions">
+              <a href="https://suno.com/create" target="_blank" rel="noopener noreferrer" class="gjs-t-button visit-ai-button">Open AI</a>
+            </div>
+            <ul class="categories-list">
+              <li class="category-badge"><span>Audio</span></li>
+              <li class="category-badge"><span>Music</span></li>
+              <li class="category-badge"><span>Voice</span></li>
+            </ul>
+          </div>
+        </div>
       </article>
 
       <!-- Venngage (pre-starred) -->
-      <article data-id="ai-venngage" data-name="Venngage" data-categories="design, infographic" data-starred="true" class="ai-card card-starred">
-        <button type="button" aria-label="Toggle star" class="star-toggle-button">
-          <img src="https://api.iconify.design/lucide-star.svg?color=%23f5c542" width="18" height="18" alt="Star"/>
+      <article data-id="ai-venngage" data-name="Venngage" data-categories="design, infographic" data-starred="true" class="gjs-t-border ai-card card-starred">
+        <button type="button" aria-label="Toggle star" title="Star this tool" class="star-toggle-button">
+          <img src="https://api.iconify.design/lucide-star.svg?color=%23f5c542" width="18" height="18" alt="Star" loading="lazy" class="star-icon"/>
         </button>
-        <h3>Venngage</h3>
-        <p>AI-powered infographic and design tool for visuals.</p>
-        <a href="https://infograph.venngage.com/universal-generator" target="_blank" class="gjs-t-button">Open AI</a>
+        <div class="ai-card-header">
+          <figure class="ai-icon-figure">
+            <img src="https://api.iconify.design/lucide-image.svg" alt="Venngage Icon" width="48" height="48" loading="lazy"/>
+          </figure>
+          <div class="ai-text-content">
+            <h3 class="ai-name">Venngage</h3>
+            <p class="ai-description">AI-powered infographic and design tool for visuals.</p>
+            <div class="ai-actions">
+              <a href="https://infograph.venngage.com/universal-generator" target="_blank" rel="noopener noreferrer" class="gjs-t-button visit-ai-button">Open AI</a>
+            </div>
+            <ul class="categories-list">
+              <li class="category-badge"><span>Design</span></li>
+              <li class="category-badge"><span>Infographic</span></li>
+            </ul>
+          </div>
+        </div>
       </article>
 
     </div>
 
     <div id="emptyState" class="empty-state">
       <div class="empty-state-content">
-        <img src="https://api.iconify.design/lucide-sparkles.svg" width="36" height="36" alt="No results" loading="lazy"/>
-        <h2>No AI tools found</h2>
-        <p>Try a different name or category like “chat”, “images”, or “code”.</p>
+        <img src="https://api.iconify.design/lucide-sparkles.svg" width="36" height="36" alt="No results" loading="lazy" class="empty-state-icon"/>
+        <h2 class="gjs-t-h2">No AI tools found</h2>
+        <p class="empty-state-message">Try a different name or category like “chat”, “images”, “code”, or “starred”.</p>
       </div>
     </div>
   </section>
 </main>
 
 <footer class="footer">
-  <span>© 2025 All the Ai's</span>
-  <span>• Made by not B0T</span>
+  <div class="footer-container">
+    <span>© 2025 All the Ai's</span>
+    <nav class="footer-nav">
+      <a href="https://api.iconify.design/" target="_blank" rel="noopener noreferrer">Icons</a>
+      <a href="https://fonts.google.com/" target="_blank" rel="noopener noreferrer">Fonts</a>
+    </nav>
+  </div>
 </footer>
+
+<div class="footer-credit">
+  made by not B0T
+</div>
 
 <script>
 (function() {
@@ -230,61 +277,89 @@
   const clearBtn = document.getElementById('clearSearch');
   const resultCount = document.getElementById('resultCount');
   const emptyState = document.getElementById('emptyState');
+
   const STAR_KEY = 'alltheais-starred-ids';
 
   function loadStarred() {
-    try { return JSON.parse(localStorage.getItem(STAR_KEY)) || []; } catch { return []; }
+    try {
+      const raw = localStorage.getItem(STAR_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch(e) { return []; }
   }
+
   function saveStarred(ids) {
-    localStorage.setItem(STAR_KEY, JSON.stringify(ids));
+    try { localStorage.setItem(STAR_KEY, JSON.stringify(ids)); } catch(e){}
   }
 
   function setStarState(card, starred) {
     card.dataset.starred = starred ? 'true' : 'false';
-    const img = card.querySelector('.star-toggle-button img');
-    card.classList.toggle('card-starred', starred);
-    img.src = starred
-      ? 'https://api.iconify.design/lucide-star.svg?color=%23f5c542'
-      : 'https://api.iconify.design/lucide-star.svg';
+    const btn = card.querySelector('.star-toggle-button img');
+    if(starred) {
+      card.classList.add('card-starred');
+      if(btn) btn.src = 'https://api.iconify.design/lucide-star.svg?color=%23f5c542';
+    } else {
+      card.classList.remove('card-starred');
+      if(btn) btn.src = 'https://api.iconify.design/lucide-star.svg';
+    }
   }
 
   const starredIds = new Set(loadStarred());
   cards.forEach(card => {
     const id = card.dataset.id;
-    const pre = card.dataset.starred === 'true';
-    setStarState(card, pre || starredIds.has(id));
-    if (pre) starredIds.add(id);
+    const preStarred = card.dataset.starred === 'true';
+    setStarState(card, preStarred || starredIds.has(id));
+    if(preStarred) starredIds.add(id);
   });
 
-  function applySearch() {
-    const q = (searchInput.value || '').trim().toLowerCase();
-    let shown = 0;
-    cards.forEach(card => {
-      const name = card.dataset.name.toLowerCase();
-      const cats = card.dataset.categories.toLowerCase();
-      const match = !q || name.includes(q) || cats.includes(q);
-      card.style.display = match ? '' : 'none';
-      if (match) shown++;
-    });
-    emptyState.style.display = shown ? 'none' : 'block';
-    resultCount.textContent = q
-      ? `Showing ${shown} result${shown === 1 ? '' : 's'} for “${searchInput.value}”`
-      : `Showing all AI tools (${shown})`;
-  }
-
-  searchInput.addEventListener('input', applySearch);
-  clearBtn.addEventListener('click', () => { searchInput.value = ''; applySearch(); });
-
   cards.forEach(card => {
-    card.querySelector('.star-toggle-button').addEventListener('click', e => {
+    const btn = card.querySelector('.star-toggle-button');
+    if(!btn) return;
+    btn.addEventListener('click', e => {
       e.stopPropagation();
       const id = card.dataset.id;
-      const now = card.dataset.starred !== 'true';
-      setStarState(card, now);
-      if (now) starredIds.add(id); else starredIds.delete(id);
-      saveStarred([...starredIds]);
+      const nowStarred = card.dataset.starred !== 'true';
+      setStarState(card, nowStarred);
+      if(nowStarred) starredIds.add(id);
+      else starredIds.delete(id);
+      saveStarred(Array.from(starredIds));
       applySearch();
     });
+  });
+
+  function sortCards(a,b){
+    const sa = a.dataset.starred==='true'?0:1;
+    const sb = b.dataset.starred==='true'?0:1;
+    if(sa!==sb) return sa-sb;
+    return a.dataset.name.toLowerCase().localeCompare(b.dataset.name.toLowerCase());
+  }
+
+  function renderOrder(){
+    const visible = cards.filter(c=>c.style.display!=='none');
+    visible.sort(sortCards).forEach(c=>grid.appendChild(c));
+  }
+
+  function applySearch(){
+    const q = (searchInput.value||'').trim().toLowerCase();
+    let shown=0;
+    cards.forEach(card=>{
+      const name=(card.dataset.name||'').toLowerCase();
+      const cats=(card.dataset.categories||'').toLowerCase();
+      const match = !q || name.includes(q) || cats.includes(q);
+      card.style.display = match?'':'none';
+      if(match) shown++;
+    });
+
+    if(emptyState) emptyState.style.display = shown===0?'block':'none';
+    if(resultCount) resultCount.textContent = q?`Showing ${shown} result${shown===1?'':'s'} for “${searchInput.value}”`:`Showing all AI tools (${shown})`;
+
+    renderOrder();
+  }
+
+  searchInput.addEventListener('input',applySearch);
+  clearBtn.addEventListener('click',()=>{
+    searchInput.value='';
+    applySearch();
+    searchInput.focus();
   });
 
   applySearch();
