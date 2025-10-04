@@ -11,21 +11,49 @@
   <link rel="stylesheet" href="./style.css"/>
 
   <style>
-    /* Gold outline for starred cards */
+    /* --- Starred cards: thick gold outline, keep white background, remove any shine/glint sources --- */
     .ai-card.card-starred {
-      border: 3px solid #f5c542 !important;
+      /* keep the card white */
+      background-color: #ffffff !important;
+
+      /* ensure no background-image / gradient is applied */
+      background-image: none !important;
+      background-repeat: no-repeat !important;
+      background-size: auto !important;
+
+      /* disable shadows/filters that can look like a glow */
       box-shadow: none !important;
-      background: none !important;
+      filter: none !important;
+
+      /* thick gold outline */
+      border: 4px solid #f5c542 !important;
+
+      /* ensure pseudo-element glints are disabled */
+      position: relative;
+      overflow: visible;
     }
 
-    /* Footer credit */
+    /* remove any shine that might be implemented with pseudo-elements */
+    .ai-card.card-starred::before,
+    .ai-card.card-starred::after {
+      content: none !important;
+      display: none !important;
+    }
+
+    /* be conservative: do not alter inner content visuals (icons/text) except remove any overlay backgrounds */
+    .ai-card.card-starred .ai-card-header,
+    .ai-card.card-starred .ai-text-content {
+      background: transparent !important;
+      background-image: none !important;
+    }
+
+    /* Footer credit styling (placed at the very bottom) */
     .footer-credit {
       text-align: center;
       font-family: 'Inter', sans-serif;
       font-size: 0.9rem;
-      color: #999;
-      margin-top: 10px;
-      margin-bottom: 10px;
+      color: #666;
+      margin: 12px 0 20px;
     }
   </style>
 </head>
@@ -266,7 +294,7 @@
 </footer>
 
 <div class="footer-credit">
-  made by not B0T
+  made by not B0T (yes with a zero)
 </div>
 
 <script>
